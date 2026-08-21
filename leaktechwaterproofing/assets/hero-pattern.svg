@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 360" width="360" height="360">
+  <g fill="none" stroke="#ffffff" stroke-width="1.4" opacity="0.5">
+    <path d="M40 60c14-18 30-18 44 0s30 18 44 0 30-18 44 0 30 18 44 0"/>
+    <path d="M40 130c14-18 30-18 44 0s30 18 44 0 30-18 44 0 30 18 44 0"/>
+    <path d="M40 200c14-18 30-18 44 0s30 18 44 0 30-18 44 0 30 18 44 0"/>
+    <path d="M40 270c14-18 30-18 44 0s30 18 44 0 30-18 44 0 30 18 44 0"/>
+  </g>
+  <g fill="#ffffff" opacity="0.18">
+    <circle cx="60" cy="100" r="2"/>
+    <circle cx="180" cy="40" r="2"/>
+    <circle cx="300" cy="160" r="2"/>
+    <circle cx="120" cy="230" r="2"/>
+    <circle cx="260" cy="300" r="2"/>
+  </g>
+</svg>

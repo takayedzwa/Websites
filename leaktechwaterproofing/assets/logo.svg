@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="LeakTech Waterproofing logo">
+  <defs>
+    <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1a6fc4"/>
+      <stop offset="1" stop-color="#0a2540"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#lg)"/>
+  <path d="M32 12c7 9 11 14 11 20a11 11 0 0 1-22 0c0-6 4-11 11-20z" fill="#ffffff" opacity="0.95"/>
+  <path d="M32 18c4.5 6 7 9.5 7 14a7 7 0 0 1-14 0c0-4.5 2.5-8 7-14z" fill="#2b8ae8"/>
+  <circle cx="29" cy="34" r="2.4" fill="#ffffff" opacity="0.85"/>
+</svg>
