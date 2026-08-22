@@ -790,7 +790,7 @@ p { color: var(--color-text); }
   align-items: center;
   gap: var(--space-3);
 }
-.faq-item__btn .chev { flex: none; transition: transform var(--transition); color: var(--color-primary); }
+.faq-item__btn .chev { flex: none; width: 20px; height: 20px; transition: transform var(--transition); color: var(--color-primary); }
 .faq-item__btn[aria-expanded="true"] .chev { transform: rotate(180deg); }
 .faq-item__panel { padding: 0 var(--space-4); max-height: 0; overflow: hidden; transition: max-height 240ms ease, padding 240ms ease; }
 .faq-item__panel p { color: var(--color-text-muted); padding-bottom: var(--space-4); }

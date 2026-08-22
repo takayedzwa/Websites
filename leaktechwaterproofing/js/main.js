@@ -142,7 +142,12 @@
     });
   }
 
-  /* ---------- Quote request form (client-side validation) ---------- */
+  /* ---------- Quote request form (client-side validation + FormSubmit) ---------- */
+  // The form posts to FormSubmit (https://formsubmit.co), a free service that
+  // forwards form submissions to our email without needing a backend or account.
+  // We only block submission when validation fails; otherwise we let the browser
+  // POST the form naturally, and FormSubmit redirects back to the page anchor
+  // (#thank-you) so the success message can be revealed.
   var form = document.querySelector("#quote-form");
   if (form) {
     var successBox = form.querySelector(".form-success");
@@ -157,9 +162,13 @@
       var err = field.querySelector(".field__error");
       if (err) err.textContent = "";
     }
+    function showSuccess() {
+      if (!successBox) return;
+      successBox.classList.add("is-visible");
+      successBox.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
 
     form.addEventListener("submit", function (e) {
-      e.preventDefault();
       var valid = true;
       var required = form.querySelectorAll("[data-required]");
 
@@ -181,39 +190,23 @@
       });
 
       if (!valid) {
+        e.preventDefault();
         var firstInvalid = form.querySelector(".invalid input, .invalid select, .invalid textarea");
         if (firstInvalid) firstInvalid.focus();
         return;
       }
 
-      // No backend on static hosting — build a mailto fallback so the lead
-      // still reaches the company, then show confirmation.
-      var name = (form.querySelector("#q-name") || {}).value || "";
-      var email = (form.querySelector("#q-email") || {}).value || "";
-      var phone = (form.querySelector("#q-phone") || {}).value || "";
-      var service = (form.querySelector("#q-service") || {}).value || "";
-      var message = (form.querySelector("#q-message") || {}).value || "";
-
-      var subject = "Quote request — " + (name || "Website enquiry");
-      var body =
-        "Name: " + name + "\n" +
-        "Email: " + email + "\n" +
-        "Phone: " + phone + "\n" +
-        "Service: " + service + "\n\n" +
-        "Details:\n" + message;
-
-      var mailto = "mailto:leaktechwaterworx@gmail.com?subject=" +
-        encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
-
-      if (successBox) {
-        successBox.classList.add("is-visible");
-        successBox.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
-      form.reset();
-
-      // Open the user's mail client with the pre-filled message.
-      window.location.href = mailto;
+      // Valid — show the in-page success box before the browser POSTs to FormSubmit.
+      showSuccess();
+      // Allow the form to submit naturally; FormSubmit will email the lead and
+      // redirect back to #thank-you (handled below).
     });
+
+    // After a FormSubmit redirect lands back at #thank-you, reveal the success
+    // box and scroll it into view.
+    if (window.location.hash === "#thank-you" && successBox) {
+      showSuccess();
+    }
 
     // Clear errors as the user types
     form.querySelectorAll("[data-required]").forEach(function (input) {

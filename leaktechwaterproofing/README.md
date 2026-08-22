@@ -22,11 +22,16 @@ leaktechwaterproofing/
 ├── js/
 │   └── main.js             # Nav toggle, lightbox, FAQ accordion, quote form
 ├── assets/
-│   ├── logo.svg            # Brand logo
+│   ├── logo.svg            # Brand logo (SVG fallback kept)
 │   ├── favicon.svg         # Browser tab icon
 │   ├── hero-pattern.svg    # Subtle hero background
-│   ├── og-image.svg        # Social share image
-│   └── gallery-1 … 8.svg   # Gallery / project illustrations
+│   └── images/
+│       ├── logo.jpeg + logo.webp          # Site logo (raster, used in headers/footers)
+│       ├── team/                          # Team photos (raster)
+│       │   ├── team-painting-crew.jpg / .webp
+│       │   └── team-arrival-jackets.jpg / .webp
+│       └── projects/                      # Project photos (raster)
+│           └── roof-*, interior-*, flat-roof-*, courtyard-*, backyard-*, home-front-* (jpg + webp)
 ├── robots.txt
 ├── sitemap.xml
 └── .htaccess               # Apache compression + caching (optional)
@@ -38,18 +43,18 @@ leaktechwaterproofing/
 - **Accessible** — semantic HTML5, skip link, ARIA labels, keyboard-navigable nav/lightbox/FAQ, focus styles, `prefers-reduced-motion` support.
 - **SEO** — unique `<title>`, meta description, canonical, `robots.txt`, `sitemap.xml`, and JSON-LD `LocalBusiness` structured data on the home and contact pages.
 - **Open Graph / Twitter cards** — social share previews on every page.
-- **Quote request form** — client-side validation; on submit it opens the visitor's email app pre-filled to `leaktechwaterworx@gmail.com` (no backend needed). Shows a confirmation message.
-- **Image gallery with lightbox** — click to enlarge, arrow-key + Esc support.
+- **Quote request form** — client-side validation; on submit the message is delivered to `info@leaktechwaterproofing.co.za` via [FormSubmit](https://formsubmit.co) (a free, no-account, no-backend service for static sites). After the first submission you'll be asked to confirm the email address once; everything after that goes straight through. The success box is shown both in-page and on the post-submit redirect back to `#thank-you`.
+- **Working hours** — Mon–Sat 08:00–16:00. Surfaced in the topbar, footer, and a contact card; also published as `openingHoursSpecification` JSON-LD so search engines can show accurate hours.
+- **Image gallery with lightbox** — click to enlarge, arrow-key + Esc support, WebP-with-JPEG-fallback served via `<picture>`, neighbours preloaded for instant navigation.
 - **Prominent contact actions** — top bar, header "Call Now" button, sticky floating call button on mobile, repeated CTAs.
 - **Google Maps** — embedded on the Contact page (no API key required).
-- **Fast loading** — tiny SVG assets, deferred JS, preloaded CSS, gzip + caching via `.htaccess`.
+- **Fast loading** — WebP + JPEG photos via `<picture>`, deferred JS, preloaded CSS, gzip + caching via `.htaccess`.
 
 ## Before you go live
 
 1. **Update the domain** — search-and-replace `https://leaktechwaterproofing.co.za/` across the HTML files, `robots.txt` and `sitemap.xml` with your real domain.
-2. **Replace placeholder images** — the gallery SVGs are illustrations. Swap the files in `assets/` for real project photos (JPG/WebP recommended for photos). Keep the same filenames, or update the `<img src>` and `data-full` attributes in `projects.html` / `index.html`.
-   - If you switch to raster photos, also update the `og:image` meta tags to a 1200×630 PNG/JPG (SVG OG images aren't rendered by all social platforms).
-3. **Quote form** — the form currently sends via the visitor's email app (`mailto:`). If your host supports PHP or a form service (Formspree, Netlify Forms, etc.), point the form action there instead and remove the `mailto` fallback in `js/main.js`.
+2. **Project photos** — the gallery, team strip, and split-media sections in `index.html`, `projects.html`, `services.html` and `about.html` use real JPG + WebP photos in `assets/images/`. Drop replacements into the same folders using the same kebab-case filenames (`roof-...`, `flat-roof-...`, `interior-...`, etc.) and the site will pick them up. The lightbox auto-prefers WebP on browsers that support it.
+3. **Quote form** — the form is wired to [FormSubmit](https://formsubmit.co) (free, no account, no backend, ~50 submissions/month on the free tier with spam filtering). After the first submission you'll receive a one-time confirmation email; future submissions are forwarded directly to `info@leaktechwaterproofing.co.za`. To switch providers, replace the form's `action` attribute and the `_next` URL in `contact.html`.
 4. **Verify the map** — the Contact map queries the street address. Confirm it shows the correct pin, or replace the `src` with a Google Maps "Share → Embed a map" iframe.
 
 ## How to upload (shared hosting / cPanel)
